@@ -4,9 +4,10 @@ const CategorieSchema = new mongoose.Schema({
     categorie: {
         type: String,   
     },
-    title: {
-        type: String,   
+    title:[ {
+        type: String,           
     }
+    ]
 })
 
 

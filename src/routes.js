@@ -30,7 +30,7 @@ router.get('/users', async (req, res) => {
 })
 
 // get all Categorias
-router.get('/categorie', async (req, res) => {
+router.get('/categorie/list', async (req, res) => {
     try {
         const categorie = await Categorie.find()
         return res.status(200).json(categorie)
@@ -107,6 +107,20 @@ router.post('/questions/create', async (req, res) => {
         return res.status(500).json({"error":error})
     }
 })
+
+router.put('/questions/update',  async (req, res) => {
+    try {
+      const { id } = await req.params;
+
+      let question = await Question.findByIdAndUpdate(id, req.body, {
+        new: true,
+      });
+  
+      success(res, question, "updatedQuestion");
+    } catch (error) {
+      badRequest(res, error);
+    }
+});
 
 // update one quiz question
 router.put('/questions/:id/update', async (req, res) => {
@@ -206,7 +220,22 @@ router.post('/users', async (req, res) => {
     }
 })
 
+// delete one quiz question
+router.delete('/categorie/:id', async (req, res) => {
+    try {
+        const _id = req.params.id 
 
+        const categoria = await Categorie.deleteOne({_id})
+
+        if(categoria.deletedCount === 0){
+            return res.status(404).json()
+        }else{
+            return res.status(204).json()
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
 
 // delete one quiz question
 router.delete('/questions/:id', async (req, res) => {
