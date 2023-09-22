@@ -9,7 +9,7 @@ const Users = require('./models/Users');
 const Categorie= require('./models/Categorie');
 const Titulo = require('./models/Titulos');
 
-// get all quiz questions
+// get all quiz questionsffasfasf
 router.get('/questions/list', async (req, res) => {
     try {
         const questions = await Question.find()
